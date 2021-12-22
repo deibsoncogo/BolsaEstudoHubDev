@@ -1,3 +1,6 @@
+import "reflect-metadata";
+import "./database";
+import "./containers";
 import express from "express";
 import { indexRouter } from "./routes";
 
