@@ -10,6 +10,12 @@ export class UserRepository implements IUserRepository {
     this.userRepository = getRepository(UserEntity);
   }
 
+  async findOneId(id: string): Promise<UserEntity> {
+    const user = this.userRepository.findOne({ id });
+
+    return user;
+  }
+
   async findOneEmail(email: string): Promise<UserEntity> {
     const user = this.userRepository.findOne({ email });
 
