@@ -1,5 +1,6 @@
 import { hash } from "bcryptjs";
 import { inject, injectable } from "tsyringe";
+import { AppError } from "../../../errors/appError";
 import { ICreateUserDto } from "../dtos/iCreateUserServiceDto";
 import { UserEntity } from "../entities/userEntity";
 import { IUserRepository } from "../repositories/iUserRepository";
@@ -12,13 +13,13 @@ export class CreateUserService {
     const cpfAlreadyExists = await this.userRepository.findOneCpf(cpf);
 
     if (cpfAlreadyExists) {
-      console.log("Erro cpf");
+      throw new AppError("Já existe este cpf cadastrado");
     }
 
     const emailAlreadyExists = await this.userRepository.findOneEmail(email);
 
     if (emailAlreadyExists) {
-      console.log("Erro email");
+      throw new AppError("Já existe este email cadastrado");
     }
 
     const passwordHash = await hash(password, 8);
