@@ -5,7 +5,7 @@ import { UpdateUserService } from "./updateUserService";
 export class UpdateUserController {
   async handle(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
-    const { name, birthDate, cpf, email, passwordOld, passwordNew } = request.query;
+    const { name, cpf, email, passwordOld, passwordNew } = request.query;
 
     const updateUserService = container.resolve(UpdateUserService);
 
@@ -13,7 +13,6 @@ export class UpdateUserController {
       await updateUserService.execute({
         id: id as string,
         name: name as string,
-        birthDate: new Date(birthDate as string),
         cpf: Number(cpf as string),
         email: email as string,
         passwordOld: passwordOld as string,

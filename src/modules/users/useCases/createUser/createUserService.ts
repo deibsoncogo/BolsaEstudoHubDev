@@ -9,7 +9,7 @@ import { IUserRepository } from "../../repositories/iUserRepository";
 export class CreateUserService {
   constructor(@inject("UserRepository") private userRepository: IUserRepository) { }
 
-  async execute({ name, birthDate, cpf, email, password }: ICreateUserDto): Promise<UserEntity> {
+  async execute({ name, cpf, email, password }: ICreateUserDto): Promise<UserEntity> {
     const cpfAlreadyExists = await this.userRepository.findOneCpf(cpf);
 
     if (cpfAlreadyExists) {
@@ -26,7 +26,6 @@ export class CreateUserService {
 
     const user = await this.userRepository.create({
       name,
-      birthDate,
       cpf,
       email,
       password: passwordHash,

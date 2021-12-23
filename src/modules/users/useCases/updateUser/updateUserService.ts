@@ -10,7 +10,7 @@ export class UpdateUserService {
   constructor(@inject("UserRepository") private userRepository: IUserRepository) { }
 
   async execute(
-    { id, name, birthDate, cpf, email, passwordOld, passwordNew }: IUpdateUser,
+    { id, name, cpf, email, passwordOld, passwordNew }: IUpdateUser,
   ): Promise<UserEntity> {
     const user = await this.userRepository.findOneId(id);
 
@@ -45,7 +45,6 @@ export class UpdateUserService {
     const userUpdate = await this.userRepository.update({
       id,
       name,
-      birthDate,
       cpf,
       email,
       passwordNew: passwordHash,

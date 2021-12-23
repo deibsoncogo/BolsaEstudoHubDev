@@ -11,9 +11,6 @@ export class UserEntity {
   name: string;
 
   @Column()
-  birthDate: Date;
-
-  @Column()
   cpf: number;
 
   @Column()

@@ -12,12 +12,11 @@ export class UserRepository implements IUserRepository {
   }
 
   async update(
-    { id, name, birthDate, cpf, email, passwordNew }: IUpdateUser,
+    { id, name, cpf, email, passwordNew }: IUpdateUser,
   ): Promise<UserEntity> {
     const user = await this.findOneId(id);
 
     user.name = name || user.name;
-    user.birthDate = birthDate || user.birthDate;
     user.cpf = cpf || user.cpf;
     user.email = email || user.email;
     user.password = passwordNew || user.password;
@@ -46,8 +45,8 @@ export class UserRepository implements IUserRepository {
     return user;
   }
 
-  async create({ name, birthDate, cpf, email, password }: ICreateUserDto): Promise<UserEntity> {
-    const user = this.userRepository.create({ name, birthDate, cpf, email, password });
+  async create({ name, cpf, email, password }: ICreateUserDto): Promise<UserEntity> {
+    const user = this.userRepository.create({ name, cpf, email, password });
 
     await this.userRepository.save(user);
 
