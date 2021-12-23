@@ -1,7 +1,10 @@
+/* eslint-disable max-len */
 import { ICreateUserDto } from "../dtos/iCreateUserServiceDto";
+import { IUpdateUser } from "../dtos/iUpdateUserDto";
 import { UserEntity } from "../entities/userEntity";
 
 export interface IUserRepository {
+  update({ id, name, birthDate, cpf, email, passwordOld, passwordNew }: IUpdateUser): Promise<UserEntity>,
   findOneId(id: string): Promise<UserEntity>;
   findOneEmail(email: string): Promise<UserEntity>;
   findOneCpf(cpf: number): Promise<UserEntity>;
