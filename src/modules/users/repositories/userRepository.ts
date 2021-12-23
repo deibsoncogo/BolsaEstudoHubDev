@@ -11,6 +11,12 @@ export class UserRepository implements IUserRepository {
     this.userRepository = getRepository(UserEntity);
   }
 
+  async findAll(): Promise<UserEntity[]> {
+    const userFindAll = await this.userRepository.find();
+
+    return userFindAll;
+  }
+
   async update(
     { id, name, cpf, email, passwordNew }: IUpdateUser,
   ): Promise<UserEntity> {
