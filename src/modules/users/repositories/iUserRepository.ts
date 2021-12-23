@@ -4,6 +4,7 @@ import { IUpdateUser } from "../dtos/iUpdateUserDto";
 import { UserEntity } from "../entities/userEntity";
 
 export interface IUserRepository {
+  delete(id: string): Promise<void>;
   findAll(): Promise<UserEntity[]>;
   update({ id, name, cpf, email, passwordOld, passwordNew }: IUpdateUser): Promise<UserEntity>,
   findOneId(id: string): Promise<UserEntity>;

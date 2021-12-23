@@ -11,6 +11,10 @@ export class UserRepository implements IUserRepository {
     this.userRepository = getRepository(UserEntity);
   }
 
+  async delete(id: string): Promise<void> {
+    await this.userRepository.delete(id);
+  }
+
   async findAll(): Promise<UserEntity[]> {
     const userFindAll = await this.userRepository.find();
 
