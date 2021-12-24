@@ -10,6 +10,10 @@ export class AddressRepository implements IAddressRepository {
 
   constructor() { this.addressRepository = getRepository(AddressEntity); }
 
+  async deleteAddress(id: string): Promise<void> {
+    await this.addressRepository.delete({ id });
+  }
+
   async findOneIdAddress(id: string): Promise<AddressEntity> {
     const address = await this.addressRepository.findOne({ id });
 
