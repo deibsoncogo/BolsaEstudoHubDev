@@ -28,6 +28,8 @@ export class UserEntity {
   constructor() {
     if (!this.id) {
       this.id = uuidV4();
+      this.createdAt = new Date();
+      this.updatedAt = new Date();
     }
   }
 }
