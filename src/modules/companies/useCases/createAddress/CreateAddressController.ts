@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
-import { FirstLetterCapitalUtil } from "../../../../utils/firstLetterCapitalUtil";
 import { CreateAddressService } from "./createAddressService";
 
 export class CreateAddressController {
@@ -9,20 +8,8 @@ export class CreateAddressController {
 
     const createAddressService = container.resolve(CreateAddressService);
 
-    const publicPlaceFormatted = FirstLetterCapitalUtil(publicPlace);
-    const numberFormatted = number.toUpperCase();
-    const statePlaceFormatted = FirstLetterCapitalUtil(state);
-    const cityPlaceFormatted = FirstLetterCapitalUtil(city);
-    const countryPlaceFormatted = FirstLetterCapitalUtil(country);
-
     return response.status(201).json(
-      await createAddressService.execute({
-        publicPlace: publicPlaceFormatted,
-        number: numberFormatted,
-        state: statePlaceFormatted,
-        city: cityPlaceFormatted,
-        country: countryPlaceFormatted,
-      }),
+      await createAddressService.execute({ publicPlace, number, state, city, country }),
     );
   }
 }
