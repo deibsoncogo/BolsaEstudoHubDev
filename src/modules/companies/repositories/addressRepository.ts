@@ -1,6 +1,6 @@
 import { getRepository, Repository } from "typeorm";
 import { ICreateAddressDto } from "../dtos/iCreateAddressDto";
-import { IFindFilterDto } from "../dtos/iFindFilterDto";
+import { IFindFilterAddressDto } from "../dtos/iFindFilterAddressDto";
 import { AddressEntity } from "../entities/addressEntity";
 import { IAddressRepository } from "./iAddressRepository";
 
@@ -10,7 +10,7 @@ export class AddressRepository implements IAddressRepository {
   constructor() { this.addressRepository = getRepository(AddressEntity); }
 
   async findFilter(
-    { publicPlace, number, state, city, country }: IFindFilterDto,
+    { publicPlace, number, state, city, country }: IFindFilterAddressDto,
   ): Promise<AddressEntity[]> {
     const addressQueryBuilder = await this.addressRepository.createQueryBuilder("address");
 

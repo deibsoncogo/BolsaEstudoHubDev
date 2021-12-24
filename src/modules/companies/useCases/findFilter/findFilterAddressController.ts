@@ -1,15 +1,15 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
-import { FindFilterService } from "./findFilterService";
+import { FindFilterAddressService } from "./findFilterAddressService";
 
-export class FindFilterController {
+export class FindFilterAddressController {
   async handle(request: Request, response: Response): Promise<Response> {
     const { publicPlace, number, state, city, country } = request.query;
 
-    const findFilterService = container.resolve(FindFilterService);
+    const findFilterAddressService = container.resolve(FindFilterAddressService);
 
     return response.status(200).json(
-      await findFilterService.execute({
+      await findFilterAddressService.execute({
         publicPlace: publicPlace as string,
         number: number as string,
         state: state as string,

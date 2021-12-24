@@ -1,4 +1,4 @@
-export interface IFindFilterDto {
+export interface IFindFilterAddressDto {
   publicPlace?: string;
   number?: string;
   state?: string;

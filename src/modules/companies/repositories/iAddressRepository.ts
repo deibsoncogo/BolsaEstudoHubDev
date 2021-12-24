@@ -1,8 +1,9 @@
+/* eslint-disable max-len */
 import { ICreateAddressDto } from "../dtos/iCreateAddressDto";
-import { IFindFilterDto } from "../dtos/iFindFilterDto";
+import { IFindFilterAddressDto } from "../dtos/iFindFilterAddressDto";
 import { AddressEntity } from "../entities/addressEntity";
 
 export interface IAddressRepository {
-  findFilter({ publicPlace, number, state, city, country }: IFindFilterDto): Promise<AddressEntity[]>
+  findFilter({ publicPlace, number, state, city, country }: IFindFilterAddressDto): Promise<AddressEntity[]>
   create({ publicPlace, number, state, city, country }: ICreateAddressDto): Promise<AddressEntity>;
 }

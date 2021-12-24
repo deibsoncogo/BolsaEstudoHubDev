@@ -1,14 +1,14 @@
 import { inject, injectable } from "tsyringe";
-import { IFindFilterDto } from "../../dtos/iFindFilterDto";
+import { IFindFilterAddressDto } from "../../dtos/iFindFilterAddressDto";
 import { AddressEntity } from "../../entities/addressEntity";
 import { IAddressRepository } from "../../repositories/iAddressRepository";
 
 @injectable()
-export class FindFilterService {
+export class FindFilterAddressService {
   constructor(@inject("AddressRepository") private addressRepository: IAddressRepository) { }
 
   async execute(
-    { publicPlace, number, state, city, country }: IFindFilterDto,
+    { publicPlace, number, state, city, country }: IFindFilterAddressDto,
   ): Promise<AddressEntity[]> {
     const address = await this.addressRepository.findFilter({
       publicPlace,
