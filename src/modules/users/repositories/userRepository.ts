@@ -1,5 +1,6 @@
 import { getRepository, Repository } from "typeorm";
 import { ICreateUserDto } from "../dtos/iCreateUserServiceDto";
+import { IFindFilterUserDto } from "../dtos/iFindFilterUserDto";
 import { IUpdateUser } from "../dtos/iUpdateUserDto";
 import { UserEntity } from "../entities/userEntity";
 import { IUserRepository } from "./iUserRepository";
@@ -13,12 +14,6 @@ export class UserRepository implements IUserRepository {
 
   async deleteUser(id: string): Promise<void> {
     await this.userRepository.delete(id);
-  }
-
-  async findAllUser(): Promise<UserEntity[]> {
-    const userFindAll = await this.userRepository.find();
-
-    return userFindAll;
   }
 
   async updateUser(
@@ -53,6 +48,19 @@ export class UserRepository implements IUserRepository {
     const user = this.userRepository.findOne({ cpf });
 
     return user;
+  }
+
+  async findFilterUser({ id, name, cpf, email }: IFindFilterUserDto): Promise<UserEntity[]> {
+    const userQueryBuilder = await this.userRepository.createQueryBuilder("user");
+
+    id && userQueryBuilder.andWhere("user.id = :id", { id });
+    name && userQueryBuilder.andWhere("user.name = :name", { name });
+    cpf && userQueryBuilder.andWhere("user.cpf = :cpf", { cpf });
+    email && userQueryBuilder.andWhere("user.email = :email", { email });
+
+    const userGetMany = await userQueryBuilder.getMany();
+
+    return userGetMany;
   }
 
   async createUser({ name, cpf, email, password }: ICreateUserDto): Promise<UserEntity> {
