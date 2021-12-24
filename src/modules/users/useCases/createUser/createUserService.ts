@@ -10,13 +10,13 @@ export class CreateUserService {
   constructor(@inject("UserRepository") private userRepository: IUserRepository) { }
 
   async execute({ name, cpf, email, password }: ICreateUserDto): Promise<UserEntity> {
-    const cpfAlreadyExists = await this.userRepository.findOneCpf(cpf);
+    const cpfAlreadyExists = await this.userRepository.findOneCpfUser(cpf);
 
     if (cpfAlreadyExists) {
       throw new AppError("Já existe este cpf cadastrado");
     }
 
-    const emailAlreadyExists = await this.userRepository.findOneEmail(email);
+    const emailAlreadyExists = await this.userRepository.findOneEmailUser(email);
 
     if (emailAlreadyExists) {
       throw new AppError("Já existe este email cadastrado");
@@ -24,7 +24,7 @@ export class CreateUserService {
 
     const passwordHash = await hash(password, 8);
 
-    const user = await this.userRepository.create({
+    const user = await this.userRepository.createUser({
       name,
       cpf,
       email,

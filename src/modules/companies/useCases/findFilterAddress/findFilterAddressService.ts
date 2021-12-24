@@ -10,7 +10,7 @@ export class FindFilterAddressService {
   async execute(
     { publicPlace, number, state, city, country }: IFindFilterAddressDto,
   ): Promise<AddressEntity[]> {
-    const address = await this.addressRepository.findFilter({
+    const address = await this.addressRepository.findFilterAddress({
       publicPlace,
       number,
       state,

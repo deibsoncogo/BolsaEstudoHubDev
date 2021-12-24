@@ -8,12 +8,12 @@ export class DeleteUserService {
   constructor(@inject("UserRepository") private userRepository: IUserRepository) { }
 
   async execute({ id }: IDeleteUserDto): Promise<void> {
-    const idExists = await this.userRepository.findOneId(id);
+    const idExists = await this.userRepository.findOneIdUser(id);
 
     if (!idExists) {
       throw new AppError("Não existe um usuário com este ID");
     }
 
-    await this.userRepository.delete(id);
+    await this.userRepository.deleteUser(id);
   }
 }

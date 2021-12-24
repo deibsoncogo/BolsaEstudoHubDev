@@ -11,7 +11,7 @@ export class CreateAddressService {
   async execute(
     { publicPlace, number, state, city, country }: ICreateAddressDto,
   ): Promise<AddressEntity> {
-    const addressAlreadyExists = await this.addressRepository.findFilter({
+    const addressAlreadyExists = await this.addressRepository.findFilterAddress({
       publicPlace,
       number,
       state,
@@ -23,7 +23,13 @@ export class CreateAddressService {
       throw new AppError("Já existe este endereço no sistema");
     }
 
-    const address = await this.addressRepository.create({ publicPlace, number, state, city, country });
+    const address = await this.addressRepository.createAddress({
+      publicPlace,
+      number,
+      state,
+      city,
+      country,
+    });
 
     return address;
   }

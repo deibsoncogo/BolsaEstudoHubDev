@@ -12,19 +12,19 @@ export class UpdateUserService {
   async execute(
     { id, name, cpf, email, passwordOld, passwordNew }: IUpdateUser,
   ): Promise<UserEntity> {
-    const user = await this.userRepository.findOneId(id);
+    const user = await this.userRepository.findOneIdUser(id);
 
     if (!user) {
-      throw new AppError("ID do usuário inválido");
+      throw new AppError("ID não cadastrado");
     }
 
-    const cpfAlreadyExists = await this.userRepository.findOneCpf(cpf);
+    const cpfAlreadyExists = await this.userRepository.findOneCpfUser(cpf);
 
     if (cpfAlreadyExists) {
       throw new AppError("Já existe este CPF cadastrado");
     }
 
-    const emailAlreadyExists = await this.userRepository.findOneEmail(email);
+    const emailAlreadyExists = await this.userRepository.findOneEmailUser(email);
 
     if (emailAlreadyExists) {
       throw new AppError("Já existe este email cadastrado");
@@ -36,13 +36,13 @@ export class UpdateUserService {
       const passwordCompare = await compare(passwordOld, user.password);
 
       if (!passwordCompare) {
-        throw new AppError("Senha antiga inválida!");
+        throw new AppError("Senha antiga inválida", 401);
       }
 
       passwordHash = await hash(passwordNew, 8);
     }
 
-    const userUpdate = await this.userRepository.update({
+    const userUpdate = await this.userRepository.updateUser({
       id,
       name,
       cpf,

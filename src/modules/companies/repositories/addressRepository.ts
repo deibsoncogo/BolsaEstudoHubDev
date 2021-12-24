@@ -10,13 +10,13 @@ export class AddressRepository implements IAddressRepository {
 
   constructor() { this.addressRepository = getRepository(AddressEntity); }
 
-  async findId(id: string): Promise<AddressEntity> {
+  async findOneIdAddress(id: string): Promise<AddressEntity> {
     const address = await this.addressRepository.findOne({ id });
 
     return address;
   }
 
-  async update(
+  async updateAddress(
     { id, publicPlace, number, state, city, country }: IUpdateAddressDto,
   ): Promise<AddressEntity> {
     const addressFindOne = await this.addressRepository.findOne({ id });
@@ -33,7 +33,7 @@ export class AddressRepository implements IAddressRepository {
     return addressSave;
   }
 
-  async findFilter(
+  async findFilterAddress(
     { publicPlace, number, state, city, country }: IFindFilterAddressDto,
   ): Promise<AddressEntity[]> {
     const addressQueryBuilder = await this.addressRepository.createQueryBuilder("address");
@@ -49,7 +49,7 @@ export class AddressRepository implements IAddressRepository {
     return addressGetMany;
   }
 
-  async create(
+  async createAddress(
     { publicPlace, number, state, city, country }: ICreateAddressDto,
   ): Promise<AddressEntity> {
     const address = await this.addressRepository.create({ publicPlace, number, state, city, country });

@@ -11,7 +11,7 @@ export class UpdateAddressService {
   async execute(
     { id, publicPlace, number, state, city, country }: IUpdateAddressDto,
   ): Promise<AddressEntity> {
-    const idExists = await this.addressRepository.findId(id);
+    const idExists = await this.addressRepository.findOneIdAddress(id);
 
     if (!idExists) {
       throw new AppError("Não existe este ID cadastrado");
@@ -21,7 +21,7 @@ export class UpdateAddressService {
       throw new AppError("Não foi informado nenhum valor para alteração", 200);
     }
 
-    const addressAlreadyExists = await this.addressRepository.findFilter({
+    const addressAlreadyExists = await this.addressRepository.findFilterAddress({
       publicPlace,
       number,
       state,
@@ -33,7 +33,7 @@ export class UpdateAddressService {
       throw new AppError("Já existe este endereço no cadastrado");
     }
 
-    const addressService = await this.addressRepository.update({
+    const addressService = await this.addressRepository.updateAddress({
       id,
       publicPlace,
       number,

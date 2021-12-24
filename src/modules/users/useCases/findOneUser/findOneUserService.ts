@@ -8,7 +8,7 @@ export class FindOneUserService {
   constructor(@inject("UserRepository") private userRepository: IUserRepository) { }
 
   async execute({ id }: IFindOneUser): Promise<UserEntity> {
-    const user = await this.userRepository.findOneId(id);
+    const user = await this.userRepository.findOneIdUser(id);
 
     delete user.password;
 

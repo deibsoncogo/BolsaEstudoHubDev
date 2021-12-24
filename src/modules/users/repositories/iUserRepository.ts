@@ -4,11 +4,11 @@ import { IUpdateUser } from "../dtos/iUpdateUserDto";
 import { UserEntity } from "../entities/userEntity";
 
 export interface IUserRepository {
-  delete(id: string): Promise<void>;
-  findAll(): Promise<UserEntity[]>;
-  update({ id, name, cpf, email, passwordOld, passwordNew }: IUpdateUser): Promise<UserEntity>,
-  findOneId(id: string): Promise<UserEntity>;
-  findOneEmail(email: string): Promise<UserEntity>;
-  findOneCpf(cpf: number): Promise<UserEntity>;
-  create({ name, cpf, email, password }: ICreateUserDto): Promise<UserEntity>;
+  deleteUser(id: string): Promise<void>;
+  findAllUser(): Promise<UserEntity[]>;
+  updateUser({ id, name, cpf, email, passwordOld, passwordNew }: IUpdateUser): Promise<UserEntity>,
+  findOneIdUser(id: string): Promise<UserEntity>;
+  findOneEmailUser(email: string): Promise<UserEntity>;
+  findOneCpfUser(cpf: number): Promise<UserEntity>;
+  createUser({ name, cpf, email, password }: ICreateUserDto): Promise<UserEntity>;
 }

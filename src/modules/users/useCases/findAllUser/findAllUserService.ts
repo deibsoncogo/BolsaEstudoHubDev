@@ -8,7 +8,7 @@ export class FindAllUserService {
   constructor(@inject("UserRepository") private userRepository: IUserRepository) { }
 
   async execute(): Promise<UserEntity[]> {
-    const userFindAll = await this.userRepository.findAll();
+    const userFindAll = await this.userRepository.findAllUser();
 
     if (!userFindAll) {
       throw new AppError("Não existe nenhum usuário cadastrado", 200);

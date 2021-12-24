@@ -11,20 +11,20 @@ export class UserRepository implements IUserRepository {
     this.userRepository = getRepository(UserEntity);
   }
 
-  async delete(id: string): Promise<void> {
+  async deleteUser(id: string): Promise<void> {
     await this.userRepository.delete(id);
   }
 
-  async findAll(): Promise<UserEntity[]> {
+  async findAllUser(): Promise<UserEntity[]> {
     const userFindAll = await this.userRepository.find();
 
     return userFindAll;
   }
 
-  async update(
+  async updateUser(
     { id, name, cpf, email, passwordNew }: IUpdateUser,
   ): Promise<UserEntity> {
-    const user = await this.findOneId(id);
+    const user = await this.userRepository.findOne({ id });
 
     user.name = name || user.name;
     user.cpf = cpf || user.cpf;
@@ -37,25 +37,25 @@ export class UserRepository implements IUserRepository {
     return userSave;
   }
 
-  async findOneId(id: string): Promise<UserEntity> {
+  async findOneIdUser(id: string): Promise<UserEntity> {
     const user = this.userRepository.findOne({ id });
 
     return user;
   }
 
-  async findOneEmail(email: string): Promise<UserEntity> {
+  async findOneEmailUser(email: string): Promise<UserEntity> {
     const user = this.userRepository.findOne({ email });
 
     return user;
   }
 
-  async findOneCpf(cpf: number): Promise<UserEntity> {
+  async findOneCpfUser(cpf: number): Promise<UserEntity> {
     const user = this.userRepository.findOne({ cpf });
 
     return user;
   }
 
-  async create({ name, cpf, email, password }: ICreateUserDto): Promise<UserEntity> {
+  async createUser({ name, cpf, email, password }: ICreateUserDto): Promise<UserEntity> {
     const user = this.userRepository.create({ name, cpf, email, password });
 
     await this.userRepository.save(user);

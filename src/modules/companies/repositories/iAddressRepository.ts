@@ -5,8 +5,8 @@ import { IUpdateAddressDto } from "../dtos/iUpdateAddressDto";
 import { AddressEntity } from "../entities/addressEntity";
 
 export interface IAddressRepository {
-  findId(id: string): Promise<AddressEntity>;
-  update({ id, publicPlace, number, state, city, country }: IUpdateAddressDto): Promise<AddressEntity>;
-  findFilter({ publicPlace, number, state, city, country }: IFindFilterAddressDto): Promise<AddressEntity[]>
-  create({ publicPlace, number, state, city, country }: ICreateAddressDto): Promise<AddressEntity>;
+  findOneIdAddress(id: string): Promise<AddressEntity>;
+  updateAddress({ id, publicPlace, number, state, city, country }: IUpdateAddressDto): Promise<AddressEntity>;
+  findFilterAddress({ publicPlace, number, state, city, country }: IFindFilterAddressDto): Promise<AddressEntity[]>
+  createAddress({ publicPlace, number, state, city, country }: ICreateAddressDto): Promise<AddressEntity>;
 }
