@@ -8,9 +8,10 @@ export class FindFilterAddressService {
   constructor(@inject("AddressRepository") private addressRepository: IAddressRepository) { }
 
   async execute(
-    { publicPlace, number, state, city, country }: IFindFilterAddressDto,
+    { id, publicPlace, number, state, city, country }: IFindFilterAddressDto,
   ): Promise<AddressEntity[]> {
     const address = await this.addressRepository.findFilterAddress({
+      id,
       publicPlace,
       number,
       state,

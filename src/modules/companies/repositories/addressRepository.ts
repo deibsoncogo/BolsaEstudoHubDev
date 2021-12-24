@@ -38,10 +38,11 @@ export class AddressRepository implements IAddressRepository {
   }
 
   async findFilterAddress(
-    { publicPlace, number, state, city, country }: IFindFilterAddressDto,
+    { id, publicPlace, number, state, city, country }: IFindFilterAddressDto,
   ): Promise<AddressEntity[]> {
     const addressQueryBuilder = await this.addressRepository.createQueryBuilder("address");
 
+    id && addressQueryBuilder.andWhere("address.id = :id", { id });
     publicPlace && addressQueryBuilder.andWhere("address.publicPlace = :publicPlace", { publicPlace });
     number && addressQueryBuilder.andWhere("address.number = :number", { number });
     state && addressQueryBuilder.andWhere("address.state = :state", { state });
