@@ -1,0 +1,47 @@
+import { inject, injectable } from "tsyringe";
+import { AppError } from "../../../../errors/appError";
+import { IUpdateAddressDto } from "../../dtos/iUpdateAddressDto";
+import { AddressEntity } from "../../entities/addressEntity";
+import { IAddressRepository } from "../../repositories/iAddressRepository";
+
+@injectable()
+export class UpdateAddressService {
+  constructor(@inject("AddressRepository") private addressRepository: IAddressRepository) { }
+
+  async execute(
+    { id, publicPlace, number, state, city, country }: IUpdateAddressDto,
+  ): Promise<AddressEntity> {
+    const idExists = await this.addressRepository.findId(id);
+
+    if (!idExists) {
+      throw new AppError("Não existe este ID cadastrado");
+    }
+
+    if (!publicPlace && !number && !state && !city && !country) {
+      throw new AppError("Não foi informado nenhum valor para alteração", 200);
+    }
+
+    const addressAlreadyExists = await this.addressRepository.findFilter({
+      publicPlace,
+      number,
+      state,
+      city,
+      country,
+    });
+
+    if (addressAlreadyExists[0]) {
+      throw new AppError("Já existe este endereço no cadastrado");
+    }
+
+    const addressService = await this.addressRepository.update({
+      id,
+      publicPlace,
+      number,
+      state,
+      city,
+      country,
+    });
+
+    return addressService;
+  }
+}

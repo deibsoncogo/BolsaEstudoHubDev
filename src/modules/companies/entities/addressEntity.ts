@@ -23,14 +23,16 @@ export class AddressEntity {
   country: string;
 
   @CreateDateColumn()
-  createdAt: string;
+  createdAt: Date;
 
   @UpdateDateColumn()
-  updatedAt: string;
+  updatedAt: Date;
 
   constructor() {
     if (!this.id) {
       this.id = uuidV4();
+      this.createdAt = new Date();
+      this.updatedAt = new Date();
     }
   }
 }
