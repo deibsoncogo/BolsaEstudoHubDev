@@ -9,6 +9,29 @@ export class CompanyRepository implements ICompanyRepository {
 
   constructor() { this.companyRepository = getRepository(CompanyEntity); }
 
+  async updateCompany(
+    {
+      id, corporateName, fantasyName, cnpj, departamento, contact, email,
+      userOwnerId, addressId,
+    }: IFindFilterCompanyDto,
+  ): Promise<CompanyEntity> {
+    const companyFindOne = await this.companyRepository.findOne({ id });
+
+    companyFindOne.corporateName = corporateName || companyFindOne.corporateName;
+    companyFindOne.fantasyName = fantasyName || companyFindOne.fantasyName;
+    companyFindOne.cnpj = cnpj || companyFindOne.cnpj;
+    companyFindOne.departamento = departamento || companyFindOne.departamento;
+    companyFindOne.contact = contact || companyFindOne.contact;
+    companyFindOne.email = email || companyFindOne.email;
+    companyFindOne.userOwnerId = userOwnerId || companyFindOne.userOwnerId;
+    companyFindOne.addressId = addressId || companyFindOne.addressId;
+    companyFindOne.updatedAt = new Date();
+
+    const companySave = await this.companyRepository.save(companyFindOne);
+
+    return companySave;
+  }
+
   async findFilterCompany(
     {
       id, corporateName, fantasyName, cnpj, departamento, contact, email,

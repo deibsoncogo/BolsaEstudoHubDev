@@ -27,19 +27,19 @@ export class CompanyEntity {
   @Column()
   email: string;
 
+  @Column()
+  userOwnerId: string;
+
   @ManyToMany(() => UserEntity)
   @JoinColumn({ name: "userOwnerId" })
   user: UserEntity;
 
   @Column()
-  userOwnerId: string;
+  addressId: string;
 
   @ManyToMany(() => AddressEntity)
   @JoinColumn({ name: "addressId" })
   address: AddressEntity[];
-
-  @Column()
-  addressId: string;
 
   @CreateDateColumn()
   createdAt: Date;
