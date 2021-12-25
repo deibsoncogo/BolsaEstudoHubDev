@@ -8,6 +8,12 @@ export class CompanyRepository implements ICompanyRepository {
 
   constructor() { this.companyRepository = getRepository(CompanyEntity); }
 
+  async findAllCompany(): Promise<CompanyEntity[]> {
+    const companyFind = await this.companyRepository.find();
+
+    return companyFind;
+  }
+
   async findOneCnpj(cnpj: number): Promise<CompanyEntity> {
     const company = await this.companyRepository.findOne({ cnpj });
 
