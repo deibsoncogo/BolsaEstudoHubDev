@@ -14,11 +14,7 @@ export class UpdateAddressService {
     const idExists = await this.addressRepository.findOneIdAddress(id);
 
     if (!idExists) {
-      throw new AppError("Não existe este ID cadastrado");
-    }
-
-    if (!publicPlace && !number && !state && !city && !country) {
-      throw new AppError("Não foi informado nenhum valor para alteração", 200);
+      throw new AppError("Não existe este ID de endereço cadastrado");
     }
 
     const addressAlreadyExists = await this.addressRepository.findFilterAddress({
