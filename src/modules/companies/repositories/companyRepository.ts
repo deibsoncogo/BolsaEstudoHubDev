@@ -75,7 +75,7 @@ export class CompanyRepository implements ICompanyRepository {
   }
 
   async findAllCompany(): Promise<CompanyEntity[]> {
-    const companyFind = await this.companyRepository.find();
+    const companyFind = await this.companyRepository.find({ relations: ["address", "user"] });
 
     return companyFind;
   }

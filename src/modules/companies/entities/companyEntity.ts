@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToMany, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { v4 as uuidV4 } from "uuid";
 import { UserEntity } from "../../users/entities/userEntity";
 import { AddressEntity } from "./addressEntity";
@@ -30,14 +30,14 @@ export class CompanyEntity {
   @Column()
   userOwnerId: string;
 
-  @ManyToMany(() => UserEntity)
+  @ManyToOne(() => UserEntity)
   @JoinColumn({ name: "userOwnerId" })
   user: UserEntity;
 
   @Column()
   addressId: string;
 
-  @ManyToMany(() => AddressEntity)
+  @ManyToOne(() => AddressEntity)
   @JoinColumn({ name: "addressId" })
   address: AddressEntity[];
 
