@@ -1,11 +1,37 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
+import * as yup from "yup";
+import { AppError } from "../../../../errors/appError";
+import { YupSetLocale } from "../../../../utils/yupSetLocale";
 import { UpdateUserService } from "./updateUserService";
 
 export class UpdateUserController {
   async handle(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
     const { name, cpf, email, passwordOld, passwordNew } = request.query;
+
+    if (!name && !cpf && !email && (!passwordOld || !passwordNew)) {
+      throw new AppError("Nenhum valor foi informado", 200);
+    }
+
+    try {
+      YupSetLocale();
+
+      const schemaParams = yup.object().shape({ id: yup.string().required().uuid() });
+
+      const schemaQuery = yup.object().shape({
+        name: yup.string(),
+        cpf: yup.number().integer().positive(),
+        email: yup.string().email(),
+        passwordOld: yup.string(),
+        passwordNew: yup.string(),
+      });
+
+      await schemaParams.validate(request.params, { abortEarly: false });
+      await schemaQuery.validate(request.query, { abortEarly: false });
+    } catch (error) {
+      throw new AppError(error.errors, 401);
+    }
 
     const updateUserService = container.resolve(UpdateUserService);
 

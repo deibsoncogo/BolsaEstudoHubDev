@@ -15,7 +15,7 @@ export class UpdateUserService {
     const user = await this.userRepository.findOneIdUser(id);
 
     if (!user) {
-      throw new AppError("ID não cadastrado");
+      throw new AppError("Não existe um usuário com este ID cadastrado");
     }
 
     const cpfAlreadyExists = await this.userRepository.findOneCpfUser(cpf);
