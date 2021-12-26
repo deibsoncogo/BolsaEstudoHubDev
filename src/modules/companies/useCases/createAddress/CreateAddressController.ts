@@ -14,7 +14,7 @@ export class CreateAddressController {
 
       const schema = yup.object().shape({
         publicPlace: yup.string().required(),
-        number: yup.number().required(),
+        number: yup.string().required(),
         state: yup.string().required(),
         city: yup.string().required(),
         country: yup.string().required(),
