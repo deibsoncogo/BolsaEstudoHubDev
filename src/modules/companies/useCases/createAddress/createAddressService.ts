@@ -20,7 +20,7 @@ export class CreateAddressService {
     });
 
     if (addressAlreadyExists[0]) {
-      throw new AppError("Já existe este endereço no sistema");
+      throw new AppError("Já existe este endereço cadastrado");
     }
 
     const address = await this.addressRepository.createAddress({
