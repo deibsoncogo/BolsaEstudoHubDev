@@ -9,6 +9,12 @@ export class CompanyRepository implements ICompanyRepository {
 
   constructor() { this.companyRepository = getRepository(CompanyEntity); }
 
+  async findIdCompany(id: string): Promise<CompanyEntity> {
+    const companyFindOne = await this.companyRepository.findOne({ id });
+
+    return companyFindOne;
+  }
+
   async deleteCompany(id: string): Promise<void> {
     await this.companyRepository.delete({ id });
   }
