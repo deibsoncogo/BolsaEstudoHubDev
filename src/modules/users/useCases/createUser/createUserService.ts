@@ -13,7 +13,7 @@ export class CreateUserService {
     const cpfAlreadyExists = await this.userRepository.findOneCpfUser(cpf);
 
     if (cpfAlreadyExists) {
-      throw new AppError("Já existe este cpf cadastrado");
+      throw new AppError("Já existe este CPF cadastrado");
     }
 
     const emailAlreadyExists = await this.userRepository.findOneEmailUser(email);
