@@ -27,7 +27,7 @@ export class FindFilterCompanyController {
         addressId: yup.string().uuid(),
       });
 
-      await schemaQuery.validate(request.query, { abortEarly: false });
+      await schemaQuery.validate(request.query, { abortEarly: true });
     } catch (error) {
       throw new AppError(error.errors, 401);
     }

@@ -19,7 +19,7 @@ export class FindFilterUserController {
         email: yup.string().email(),
       });
 
-      await schemaQuery.validate(request.query, { abortEarly: false });
+      await schemaQuery.validate(request.query, { abortEarly: true });
     } catch (error) {
       throw new AppError(error.errors, 401);
     }

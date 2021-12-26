@@ -14,7 +14,7 @@ export class DeleteCompanyController {
 
       const schemaParams = yup.object().shape({ id: yup.string().required().uuid() });
 
-      await schemaParams.validate(request.params, { abortEarly: false });
+      await schemaParams.validate(request.params, { abortEarly: true });
     } catch (error) {
       throw new AppError(error.errors, 401);
     }

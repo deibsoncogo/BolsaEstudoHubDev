@@ -12,7 +12,7 @@ export class CreateAddressController {
     try {
       YupSetLocale();
 
-      const schema = yup.object().shape({
+      const schemaBody = yup.object().shape({
         publicPlace: yup.string().required(),
         number: yup.string().required(),
         state: yup.string().required(),
@@ -20,7 +20,7 @@ export class CreateAddressController {
         country: yup.string().required(),
       });
 
-      await schema.validate(request.body, { abortEarly: false });
+      await schemaBody.validate(request.body, { abortEarly: true });
     } catch (error) {
       throw new AppError(error.errors, 401);
     }

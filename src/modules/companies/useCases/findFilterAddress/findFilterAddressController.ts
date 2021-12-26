@@ -12,7 +12,7 @@ export class FindFilterAddressController {
     try {
       YupSetLocale();
 
-      const schema = yup.object().shape({
+      const schemaBody = yup.object().shape({
         id: yup.string().uuid(),
         publicPlace: yup.string(),
         number: yup.string(),
@@ -21,7 +21,7 @@ export class FindFilterAddressController {
         country: yup.string(),
       });
 
-      await schema.validate(request.body, { abortEarly: false });
+      await schemaBody.validate(request.body, { abortEarly: true });
     } catch (error) {
       throw new AppError(error.errors, 401);
     }

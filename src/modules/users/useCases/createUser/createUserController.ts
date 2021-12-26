@@ -12,14 +12,14 @@ export class CreateUserController {
     try {
       YupSetLocale();
 
-      const schema = yup.object().shape({
+      const schemaBody = yup.object().shape({
         name: yup.string().required(),
         cpf: yup.number().required().integer().positive(),
         email: yup.string().required().email(),
         password: yup.string().required(),
       });
 
-      await schema.validate(request.body, { abortEarly: false });
+      await schemaBody.validate(request.body, { abortEarly: true });
     } catch (error) {
       throw new AppError(error.errors, 401);
     }

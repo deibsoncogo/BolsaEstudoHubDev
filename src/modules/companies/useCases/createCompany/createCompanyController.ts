@@ -15,7 +15,7 @@ export class CreateCompanyController {
     try {
       YupSetLocale();
 
-      const schema = yup.object().shape({
+      const schemaBody = yup.object().shape({
         corporateName: yup.string().required(),
         fantasyName: yup.string().required(),
         cnpj: yup.number().required().positive().integer(),
@@ -26,7 +26,7 @@ export class CreateCompanyController {
         addressId: yup.string().required().uuid(),
       });
 
-      await schema.validate(request.body, { abortEarly: false });
+      await schemaBody.validate(request.body, { abortEarly: true });
     } catch (error) {
       throw new AppError(error.errors, 401);
     }

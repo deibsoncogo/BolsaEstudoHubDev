@@ -27,8 +27,8 @@ export class UpdateAddressController {
         country: yup.string(),
       });
 
-      await schemaParams.validate(request.params, { abortEarly: false });
-      await schemaQuery.validate(request.query, { abortEarly: false });
+      await schemaParams.validate(request.params, { abortEarly: true });
+      await schemaQuery.validate(request.query, { abortEarly: true });
     } catch (error) {
       throw new AppError(error.errors, 401);
     }
