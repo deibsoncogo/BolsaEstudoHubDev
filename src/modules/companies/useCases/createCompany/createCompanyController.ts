@@ -1,5 +1,8 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
+import * as yup from "yup";
+import { AppError } from "../../../../errors/appError";
+import { YupSetLocale } from "../../../../utils/yupSetLocale";
 import { CreateCompanyService } from "./createCompanyService";
 
 export class CreateCompanyController {
@@ -8,6 +11,25 @@ export class CreateCompanyController {
       corporateName, fantasyName, cnpj, departamento, contact, email,
       userOwnerId, addressId,
     } = request.body;
+
+    try {
+      YupSetLocale();
+
+      const schema = yup.object().shape({
+        corporateName: yup.string().required(),
+        fantasyName: yup.string().required(),
+        cnpj: yup.number().required().positive().integer(),
+        departamento: yup.string().required(),
+        contact: yup.number().required().positive().integer(),
+        email: yup.string().required().email(),
+        userOwnerId: yup.string().required().uuid(),
+        addressId: yup.string().required().uuid(),
+      });
+
+      await schema.validate(request.body, { abortEarly: false });
+    } catch (error) {
+      throw new AppError(error.errors, 401);
+    }
 
     const companyCreateService = container.resolve(CreateCompanyService);
 
