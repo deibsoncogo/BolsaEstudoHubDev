@@ -10,7 +10,7 @@ export class DeleteAddressService {
     const idExists = await this.addressRepository.findOneIdAddress(id);
 
     if (!idExists) {
-      throw new AppError("ID não cadastrado");
+      throw new AppError("Não existe este ID de endereço cadastrado");
     }
 
     await this.addressRepository.deleteAddress(id);
