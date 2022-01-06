@@ -16,7 +16,7 @@ export class DeleteCompanyController {
 
       await schemaParams.validate(request.params, { abortEarly: true });
     } catch (error) {
-      throw new AppError(error.errors, 401);
+      throw new AppError(error.errors);
     }
 
     const deleteCompanyService = container.resolve(DeleteCompanyService);

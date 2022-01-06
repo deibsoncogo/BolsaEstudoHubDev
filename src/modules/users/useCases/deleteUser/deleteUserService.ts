@@ -10,7 +10,7 @@ export class DeleteUserService {
     const idExists = await this.userRepository.findOneIdUser(id);
 
     if (!idExists) {
-      throw new AppError("Não existe um usuário com este ID cadastrado");
+      throw new AppError("Não existe um usuário com este ID cadastrado", 404);
     }
 
     await this.userRepository.deleteUser(id);

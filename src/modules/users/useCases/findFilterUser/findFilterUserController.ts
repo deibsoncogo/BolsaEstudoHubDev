@@ -21,7 +21,7 @@ export class FindFilterUserController {
 
       await schemaQuery.validate(request.query, { abortEarly: true });
     } catch (error) {
-      throw new AppError(error.errors, 401);
+      throw new AppError(error.errors);
     }
 
     const findFilterUserService = container.resolve(FindFilterUserService);

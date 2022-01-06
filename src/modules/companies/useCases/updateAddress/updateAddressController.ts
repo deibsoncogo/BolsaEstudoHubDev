@@ -11,7 +11,7 @@ export class UpdateAddressController {
     const { publicPlace, number, state, city, country } = request.query;
 
     if (!publicPlace && !number && !state && !city && !country) {
-      throw new AppError("Nenhum valor foi informado", 200);
+      throw new AppError("Nenhum valor foi informado", 204);
     }
 
     try {
@@ -30,7 +30,7 @@ export class UpdateAddressController {
       await schemaParams.validate(request.params, { abortEarly: true });
       await schemaQuery.validate(request.query, { abortEarly: true });
     } catch (error) {
-      throw new AppError(error.errors, 401);
+      throw new AppError(error.errors);
     }
 
     const updateAddressService = container.resolve(UpdateAddressService);

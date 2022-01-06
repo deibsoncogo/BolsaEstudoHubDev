@@ -15,7 +15,7 @@ export class UpdateCompanyController {
 
     if (!corporateName && !fantasyName && !cnpj && !departamento && !contact && !email
       && !userOwnerId && !addressId) {
-      throw new AppError("Não foi informado nenhum valor para alteração", 200);
+      throw new AppError("Não foi informado nenhum valor para alteração", 204);
     }
 
     try {
@@ -36,7 +36,7 @@ export class UpdateCompanyController {
       await schemaParams.validate(request.params, { abortEarly: true });
       await schemaQuery.validate(request.query, { abortEarly: true });
     } catch (error) {
-      throw new AppError(error.errors, 401);
+      throw new AppError(error.errors);
     }
 
     const updateCompanyService = container.resolve(UpdateCompanyService);

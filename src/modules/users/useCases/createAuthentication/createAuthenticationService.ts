@@ -19,13 +19,13 @@ export class CreateAuthenticationService {
     const user = await this.userRepository.findOneEmailUser(email);
 
     if (!user) {
-      throw new AppError(messageErro);
+      throw new AppError(messageErro, 401);
     }
 
     const passwordMatch = await compare(password, user.password);
 
     if (!passwordMatch) {
-      throw new AppError(messageErro);
+      throw new AppError(messageErro, 401);
     }
 
     const token: string = sign(

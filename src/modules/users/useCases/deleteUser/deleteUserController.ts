@@ -16,12 +16,12 @@ export class DeleteUserController {
 
       await schemaParams.validate(request.params, { abortEarly: true });
     } catch (error) {
-      throw new AppError(error.errors, 401);
+      throw new AppError(error.errors);
     }
 
     const deleteUserService = container.resolve(DeleteUserService);
 
-    return response.status(201).json(
+    return response.status(204).json(
       await deleteUserService.execute(id),
     );
   }

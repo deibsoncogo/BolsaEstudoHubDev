@@ -23,7 +23,7 @@ export class FindFilterAddressController {
 
       await schemaBody.validate(request.body, { abortEarly: true });
     } catch (error) {
-      throw new AppError(error.errors, 401);
+      throw new AppError(error.errors);
     }
 
     const findFilterAddressService = container.resolve(FindFilterAddressService);

@@ -16,7 +16,7 @@ export async function EnsuredAuthorizedMiddleware(
   const authHeader = request.headers.authorization;
 
   if (!authHeader) {
-    throw new AppError("Token não informado", 401);
+    throw new AppError("Token não informado", 404);
   }
 
   const [, token] = authHeader.split(" ");

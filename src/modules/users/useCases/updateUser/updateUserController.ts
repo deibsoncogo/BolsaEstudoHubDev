@@ -11,7 +11,7 @@ export class UpdateUserController {
     const { name, cpf, email, passwordOld, passwordNew } = request.query;
 
     if (!name && !cpf && !email && (!passwordOld || !passwordNew)) {
-      throw new AppError("Nenhum valor foi informado", 200);
+      throw new AppError("Nenhum valor foi informado", 204);
     }
 
     try {
@@ -30,7 +30,7 @@ export class UpdateUserController {
       await schemaParams.validate(request.params, { abortEarly: true });
       await schemaQuery.validate(request.query, { abortEarly: true });
     } catch (error) {
-      throw new AppError(error.errors, 401);
+      throw new AppError(error.errors);
     }
 
     const updateUserService = container.resolve(UpdateUserService);

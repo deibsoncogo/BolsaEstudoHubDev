@@ -22,7 +22,7 @@ export class CreateAddressController {
 
       await schemaBody.validate(request.body, { abortEarly: true });
     } catch (error) {
-      throw new AppError(error.errors, 401);
+      throw new AppError(error.errors);
     }
 
     const createAddressService = container.resolve(CreateAddressService);
